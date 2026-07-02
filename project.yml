@@ -1,0 +1,33 @@
+name: A3ToA4Splitter
+targets:
+  A3ToA4Splitter:
+    type: application
+    platform: iOS
+    deploymentTarget: "15.0"
+    sources:
+      - path: A3ToA4Splitter
+    settings:
+      base:
+        INFOPLIST_FILE: A3ToA4Splitter/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.jimmy.A3splitA4
+        PRODUCT_NAME: A3ToA4Splitter
+        SWIFT_VERSION: "5.9"
+        TARGETED_DEVICE_FAMILY: "1"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+    info:
+      path: A3ToA4Splitter/Info.plist
+      properties:
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "1"
+        LSRequiresIPhoneOS: true
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: true
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UIFileSharingEnabled: true
+        LSSupportsOpeningDocumentsInPlace: true
