@@ -55,25 +55,34 @@ jobs:
           du -sh "$APP_PATH"
           echo "=== .app contents ==="
           ls -la "$APP_PATH"
-          echo "=== Check for binary ==="
+          echo "=== Binary details ==="
           find "$APP_PATH" -name "${{ env.PROJECT_NAME }}" -type f -exec ls -lh {} \;
+          find "$APP_PATH" -name "${{ env.PROJECT_NAME }}" -type f -exec file {} \;
+          echo "=== Size breakdown ==="
+          du -sh "$APP_PATH"/*
+          echo "=== Frameworks contents ==="
+          if [ -d "$APP_PATH/Frameworks" ]; then
+            ls -la "$APP_PATH/Frameworks/"
+            du -sh "$APP_PATH/Frameworks/"/*
+          else
+            echo "No Frameworks directory"
+          fi
 
-      - name: Remove Signature & Package IPA
+      - name: Package IPA
         run: |
           APP_PATH=$(find "build/DerivedData/Build/Products/Release-iphoneos" -name "*.app" -type d | head -n 1)
 
-          codesign --remove-signature "$APP_PATH" 2>/dev/null || true
           rm -rf "$APP_PATH/_CodeSignature" 2>/dev/null || true
           rm -rf "$APP_PATH/embedded.mobileprovision" 2>/dev/null || true
 
           mkdir -p Payload
           cp -R "$APP_PATH" Payload/
 
-          zip -r -y ${{ env.PROJECT_NAME }}.ipa Payload/
+          zip -r ${{ env.PROJECT_NAME }}.ipa Payload/
           ls -lh ${{ env.PROJECT_NAME }}.ipa
 
           echo "=== IPA structure ==="
-          unzip -l ${{ env.PROJECT_NAME }}.ipa | head -30
+          unzip -l ${{ env.PROJECT_NAME }}.ipa | head -40
 
       - name: Upload IPA
         uses: actions/upload-artifact@v4
