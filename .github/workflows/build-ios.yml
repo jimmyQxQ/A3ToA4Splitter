@@ -22,27 +22,30 @@ jobs:
       - name: Generate Xcode Project
         run: xcodegen generate
 
-      - name: Build and Archive (ad-hoc, no certificate needed)
+      - name: Build for iOS (no signature)
         run: |
-          set -o pipefail
+          set -e
           mkdir -p build
-          xcodebuild archive \
+          xcodebuild build \
             -project ${{ env.PROJECT_NAME }}.xcodeproj \
             -scheme ${{ env.SCHEME_NAME }} \
-            -archivePath build/${{ env.PROJECT_NAME }}.xcarchive \
-            -destination 'generic/platform=iOS' \
-            CODE_SIGN_IDENTITY="-" \
+            -configuration Release \
+            -sdk iphoneos \
+            -derivedDataPath build/DerivedData \
+            CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGN_STYLE=Manual \
-            2>&1 | tee build/archive-log.txt
+            2>&1 | tee build/build-log.txt
 
       - name: Inspect .app Bundle
         run: |
-          APP_PATH=$(find "build/${{ env.PROJECT_NAME }}.xcarchive/Products/Applications" -name "*.app" -type d | head -n 1)
+          APP_PATH=$(find "build/DerivedData/Build/Products/Release-iphoneos" -name "*.app" -type d | head -n 1)
 
           if [ -z "$APP_PATH" ]; then
             echo "ERROR: No .app found!"
+            echo "=== Searching in DerivedData ==="
+            find "build/DerivedData" -name "*.app" -type d 2>/dev/null
             exit 1
           fi
 
@@ -53,17 +56,16 @@ jobs:
           echo "=== .app contents ==="
           ls -la "$APP_PATH"
           echo "=== Check for binary ==="
-          find "$APP_PATH" -name "A3ToA4Splitter" -type f -exec ls -lh {} \;
+          find "$APP_PATH" -name "${{ env.PROJECT_NAME }}" -type f -exec ls -lh {} \;
 
       - name: Remove Signature & Package IPA
         run: |
-          APP_PATH=$(find "build/${{ env.PROJECT_NAME }}.xcarchive/Products/Applications" -name "*.app" -type d | head -n 1)
+          APP_PATH=$(find "build/DerivedData/Build/Products/Release-iphoneos" -name "*.app" -type d | head -n 1)
 
-          # 移除 ad-hoc 签名（TrollStore 会自己处理签名）
           codesign --remove-signature "$APP_PATH" 2>/dev/null || true
           rm -rf "$APP_PATH/_CodeSignature" 2>/dev/null || true
+          rm -rf "$APP_PATH/embedded.mobileprovision" 2>/dev/null || true
 
-          # 打包为 IPA（必须包含 Payload/ 根目录）
           mkdir -p Payload
           cp -R "$APP_PATH" Payload/
 
@@ -83,4 +85,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.PROJECT_NAME }}-build-log
-          path: build/archive-log.txt
+          path: build/build-log.txt
