@@ -5,6 +5,7 @@ import UniformTypeIdentifiers
 struct ContentView: View {
     @State private var showDocumentPicker = false
     @State private var showImagePicker = false
+    @State private var showCropPreview = false
     @State private var sourceURL: URL?
     @State private var sourceImage: UIImage?
     @State private var outputURL: URL?
@@ -19,7 +20,6 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 24) {
-                // 顶部标题区
                 VStack(spacing: 8) {
                     Image(systemName: "doc.on.doc")
                         .font(.system(size: 60))
@@ -27,7 +27,7 @@ struct ContentView: View {
                     Text("A3 拆分 A4")
                         .font(.largeTitle)
                         .fontWeight(.bold)
-                    Text("上传 A3 图片或 PDF，自动拆分为多页 A4")
+                    Text("上传 A3 图片或 PDF，自动识别方向并拆分为 A4")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
@@ -35,7 +35,6 @@ struct ContentView: View {
                 }
                 .padding(.top, 40)
 
-                // 上传区域
                 VStack(spacing: 16) {
                     Button(action: { showImagePicker = true }) {
                         UploadButton(
@@ -119,13 +118,12 @@ struct ContentView: View {
 
                 Spacer()
 
-                // 说明文字
                 VStack(spacing: 4) {
                     Text("功能说明")
                         .font(.caption)
                         .fontWeight(.bold)
                         .foregroundColor(.secondary)
-                    Text("自动识别横竖向 · 自动添加裁切线 · 纵向排列")
+                    Text("自动识别横竖向 · 预览裁切效果 · 精准拆分")
                         .font(.caption2)
                         .foregroundColor(.secondary)
                 }
@@ -140,6 +138,24 @@ struct ContentView: View {
             .sheet(isPresented: $showImagePicker) {
                 ImagePicker { image in
                     handleSelectedImage(image: image)
+                }
+            }
+            .sheet(isPresented: $showCropPreview) {
+                if let image = sourceImage {
+                    CropPreviewView(image: image, fileType: "image", onConfirm: processImage)
+                } else if let url = sourceURL {
+                    if let pdf = PDFDocument(url: url), let page = pdf.page(at: 0) {
+                        let pageBounds = page.bounds(for: .mediaBox)
+                        let renderer = UIGraphicsImageRenderer(size: pageBounds.size)
+                        let image = renderer.image { ctx in
+                            UIColor.white.setFill()
+                            ctx.fill(pageBounds)
+                            ctx.cgContext.translateBy(x: 0, y: pageBounds.height)
+                            ctx.cgContext.scaleBy(x: 1, y: -1)
+                            page.draw(with: .mediaBox, to: ctx.cgContext)
+                        }
+                        CropPreviewView(image: image, fileType: "pdf", onConfirm: processPDF)
+                    }
                 }
             }
             .sheet(isPresented: $showShareSheet) {
@@ -172,7 +188,23 @@ struct ContentView: View {
         }
         defer { url.stopAccessingSecurityScopedResource() }
 
+        sourceURL = url
+        sourceImage = nil
+        showCropPreview = true
+    }
+
+    private func handleSelectedImage(image: UIImage) {
+        sourceImage = image
+        sourceURL = nil
+        showCropPreview = true
+    }
+
+    private func processPDF() {
+        guard let url = sourceURL else { return }
+
+        showCropPreview = false
         isProcessing = true
+
         DispatchQueue.global(qos: .userInitiated).async {
             do {
                 let resultURL = try PDFProcessor.splitPDFToA4(sourceURL: url)
@@ -189,8 +221,12 @@ struct ContentView: View {
         }
     }
 
-    private func handleSelectedImage(image: UIImage) {
+    private func processImage() {
+        guard let image = sourceImage else { return }
+
+        showCropPreview = false
         isProcessing = true
+
         DispatchQueue.global(qos: .userInitiated).async {
             do {
                 let resultURL = try PDFProcessor.splitImageToA4(image: image)
@@ -231,7 +267,6 @@ struct ContentView: View {
     }
 }
 
-// MARK: - 上传按钮组件
 struct UploadButton: View {
     let icon: String
     let title: String
@@ -266,7 +301,6 @@ struct UploadButton: View {
     }
 }
 
-// MARK: - 文档选择器
 struct DocumentPicker: UIViewControllerRepresentable {
     let types: [UTType]
     let onPick: (URL) -> Void
@@ -297,7 +331,6 @@ struct DocumentPicker: UIViewControllerRepresentable {
     }
 }
 
-// MARK: - 图片选择器
 struct ImagePicker: UIViewControllerRepresentable {
     let onPick: (UIImage) -> Void
 
@@ -334,7 +367,6 @@ struct ImagePicker: UIViewControllerRepresentable {
     }
 }
 
-// MARK: - 分享面板
 struct ShareSheet: UIViewControllerRepresentable {
     let items: [Any]
 
@@ -346,7 +378,6 @@ struct ShareSheet: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
 
-// MARK: - PDF 预览
 struct PDFPreviewView: View {
     let url: URL
     @Environment(\.presentationMode) var presentationMode
@@ -380,7 +411,6 @@ struct PDFKitView: UIViewRepresentable {
     func updateUIView(_ uiView: PDFView, context: Context) {}
 }
 
-// MARK: - 预览
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()

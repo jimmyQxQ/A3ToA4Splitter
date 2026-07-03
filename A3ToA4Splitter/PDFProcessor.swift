@@ -34,14 +34,14 @@ class PDFProcessor {
     static let a3Portrait = CGSize(width: 842, height: 1191)
     static let a3Landscape = CGSize(width: 1191, height: 842)
 
-    static func detectOrientation(size: CGSize) -> Bool {
-        return size.width > size.height
+    static func detectOrientation(cgSize: CGSize) -> Bool {
+        return cgSize.width > cgSize.height
     }
 
-    static func calculateLayout(sourceSize: CGSize) -> PageLayout {
-        let isLandscape = detectOrientation(size: sourceSize)
-        let a4Size = a4Portrait
+    static func calculateLayout(cgSize: CGSize) -> PageLayout {
+        let isLandscape = detectOrientation(cgSize: cgSize)
         let a3Size = isLandscape ? a3Landscape : a3Portrait
+        let a4Size = isLandscape ? a4Portrait : a4Landscape
 
         let columns = isLandscape ? 2 : 1
         let rows = isLandscape ? 1 : 2
@@ -56,8 +56,12 @@ class PDFProcessor {
     }
 
     static func splitImageToA4(image: UIImage) throws -> URL {
-        let size = image.size
-        let layout = calculateLayout(sourceSize: size)
+        guard let cgImage = image.cgImage else {
+            throw SplitError.invalidInput
+        }
+
+        let cgSize = CGSize(width: CGFloat(cgImage.width), height: CGFloat(cgImage.height))
+        let layout = calculateLayout(cgSize: cgSize)
 
         let pdfData = NSMutableData()
         guard let consumer = CGDataConsumer(data: pdfData as CFMutableData) else {
@@ -69,22 +73,18 @@ class PDFProcessor {
             throw SplitError.renderFailed
         }
 
-        guard let cgImage = image.cgImage else {
-            throw SplitError.invalidInput
-        }
-
-        let imageAspectRatio = size.width / size.height
+        let imageAspectRatio = cgSize.width / cgSize.height
         let a3AspectRatio = layout.a3Size.width / layout.a3Size.height
 
         var scale: CGFloat
         if imageAspectRatio > a3AspectRatio {
-            scale = layout.a3Size.width / size.width
+            scale = layout.a3Size.width / cgSize.width
         } else {
-            scale = layout.a3Size.height / size.height
+            scale = layout.a3Size.height / cgSize.height
         }
 
-        let scaledWidth = size.width * scale
-        let scaledHeight = size.height * scale
+        let scaledWidth = cgSize.width * scale
+        let scaledHeight = cgSize.height * scale
 
         let offsetX = (layout.a3Size.width - scaledWidth) / 2
         let offsetY = (layout.a3Size.height - scaledHeight) / 2
@@ -132,7 +132,7 @@ class PDFProcessor {
             guard let page = pdfDocument.page(at: pageIndex) else { continue }
 
             let pageBounds = page.bounds(for: .mediaBox)
-            let layout = calculateLayout(sourceSize: pageBounds.size)
+            let layout = calculateLayout(cgSize: pageBounds.size)
 
             for row in 0..<layout.rows {
                 for col in 0..<layout.columns {
