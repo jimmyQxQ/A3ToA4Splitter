@@ -81,7 +81,7 @@ struct CropPreviewView: View {
             }
             .navigationTitle("裁切预览")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
+            .toolbar(content: {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("取消") {
                         presentationMode.wrappedValue.dismiss()
@@ -93,7 +93,7 @@ struct CropPreviewView: View {
                     }
                     .foregroundColor(.blue)
                 }
-            }
+            })
         }
     }
 }
