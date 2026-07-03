@@ -8,10 +8,10 @@ Build settings from command line:
     CODE_SIGNING_REQUIRED = NO
     SDKROOT = iphoneos26.5
 
-2026-07-03 02:25:15.247 xcodebuild[2512:10935] [MT] IDERunDestination: Supported platforms for the buildables in the current scheme is empty.
+2026-07-03 02:33:41.463 xcodebuild[2030:9358] [MT] IDERunDestination: Supported platforms for the buildables in the current scheme is empty.
 --- xcodebuild: WARNING: Using the first of multiple matching destinations:
 { platform:iOS, id:dvtdevice-DVTiPhonePlaceholder-iphoneos:placeholder, name:Any iOS Device }
-{ platform:macOS, arch:arm64, variant:Designed for [iPad,iPhone], id:835c183f62e6045070c272c02327a12d8d6195ee, name:My Mac }
+{ platform:macOS, arch:arm64, variant:Designed for [iPad,iPhone], id:4f5b59cd8633c113e3ce9e699f31d3836f028bdd, name:My Mac }
 { platform:iOS Simulator, id:dvtdevice-DVTiOSDeviceSimulatorPlaceholder-iphonesimulator:placeholder, name:Any iOS Simulator Device }
 note: Using codesigning identity override: 
 ComputePackagePrebuildTargetDependencyGraph
@@ -43,8 +43,12 @@ ExecuteExternalTool /Applications/Xcode_26.5.app/Contents/Developer/Toolchains/X
 
 ExecuteExternalTool /Applications/Xcode_26.5.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
 
-Build description signature: f7049262eeb650c124e158519b047b37
-Build description path: /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/XCBuildData/f7049262eeb650c124e158519b047b37.xcbuilddata
+Build description signature: bc22940aff79b04e0290a90feeda53ab
+Build description path: /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/XCBuildData/bc22940aff79b04e0290a90feeda53ab.xcbuilddata
+ClangStatCache /Applications/Xcode_26.5.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode_26.5.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.5.sdk /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/SDKStatCaches.noindex/iphoneos26.5-23F73-688ef53f1462e2c8f657fdc38a81448f67b36cc14858027d908dabaffc6b2e8d.sdkstatcache
+    cd /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter.xcodeproj
+    /Applications/Xcode_26.5.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode_26.5.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.5.sdk -o /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/SDKStatCaches.noindex/iphoneos26.5-23F73-688ef53f1462e2c8f657fdc38a81448f67b36cc14858027d908dabaffc6b2e8d.sdkstatcache
+
 CreateBuildDirectory /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Products
     cd /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter.xcodeproj
     builtin-create-build-directory /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Products
@@ -52,14 +56,6 @@ CreateBuildDirectory /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/Deri
 CreateBuildDirectory /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex
     cd /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter.xcodeproj
     builtin-create-build-directory /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex
-
-ClangStatCache /Applications/Xcode_26.5.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode_26.5.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.5.sdk /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/SDKStatCaches.noindex/iphoneos26.5-23F73-688ef53f1462e2c8f657fdc38a81448f67b36cc14858027d908dabaffc6b2e8d.sdkstatcache
-    cd /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter.xcodeproj
-    /Applications/Xcode_26.5.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode_26.5.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.5.sdk -o /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/SDKStatCaches.noindex/iphoneos26.5-23F73-688ef53f1462e2c8f657fdc38a81448f67b36cc14858027d908dabaffc6b2e8d.sdkstatcache
-
-CreateBuildDirectory /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Products/Release-iphoneos
-    cd /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter.xcodeproj
-    builtin-create-build-directory /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Products/Release-iphoneos
 
 WriteAuxiliaryFile /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter-94d1d7391f75a6287cef562d1a77c0f0-VFS-iphoneos/all-product-headers.yaml
     cd /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter.xcodeproj
@@ -76,6 +72,10 @@ CreateBuildDirectory /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/Deri
 CreateBuildDirectory /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/EagerLinkingTBDs/Release-iphoneos
     cd /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter.xcodeproj
     builtin-create-build-directory /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/EagerLinkingTBDs/Release-iphoneos
+
+CreateBuildDirectory /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Products/Release-iphoneos
+    cd /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter.xcodeproj
+    builtin-create-build-directory /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Products/Release-iphoneos
 
 WriteAuxiliaryFile /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter.build/Objects-normal/arm64/A3ToA4Splitter_const_extract_protocols.json (in target 'A3ToA4Splitter' from project 'A3ToA4Splitter')
     cd /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter
@@ -117,13 +117,13 @@ WriteAuxiliaryFile /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/Derive
     cd /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter
     write-file /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter.build/A3ToA4Splitter-own-target-headers.hmap
 
-WriteAuxiliaryFile /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter.build/A3ToA4Splitter-generated-files.hmap (in target 'A3ToA4Splitter' from project 'A3ToA4Splitter')
-    cd /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter
-    write-file /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter.build/A3ToA4Splitter-generated-files.hmap
-
 WriteAuxiliaryFile /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter.build/A3ToA4Splitter-all-target-headers.hmap (in target 'A3ToA4Splitter' from project 'A3ToA4Splitter')
     cd /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter
     write-file /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter.build/A3ToA4Splitter-all-target-headers.hmap
+
+WriteAuxiliaryFile /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter.build/A3ToA4Splitter-generated-files.hmap (in target 'A3ToA4Splitter' from project 'A3ToA4Splitter')
+    cd /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter
+    write-file /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter.build/A3ToA4Splitter-generated-files.hmap
 
 WriteAuxiliaryFile /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter.build/A3ToA4Splitter-all-non-framework-target-headers.hmap (in target 'A3ToA4Splitter' from project 'A3ToA4Splitter')
     cd /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter
@@ -145,24 +145,10 @@ GenerateAssetSymbols /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Spli
     cd /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter
     /Applications/Xcode_26.5.app/Contents/Developer/usr/bin/actool /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Preview\ Content/Preview\ Assets.xcassets --compile /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Products/Release-iphoneos/A3ToA4Splitter.app --output-format human-readable-text --notices --warnings --export-dependency-info /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter.build/assetcatalog_dependencies --output-partial-info-plist /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter.build/assetcatalog_generated_info.plist --app-icon AppIcon --compress-pngs --enable-on-demand-resources YES --development-region en --target-device iphone --minimum-deployment-target 15.0 --platform iphoneos --bundle-identifier com.jimmy.A3splitA4 --generate-swift-asset-symbol-extensions NO --generate-swift-asset-symbols /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter.build/DerivedSources/GeneratedAssetSymbols.swift --generate-objc-asset-symbols /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter.build/DerivedSources/GeneratedAssetSymbols.h --generate-asset-symbol-index /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter.build/DerivedSources/GeneratedAssetSymbols-Index.plist
 /* com.apple.actool.document.warnings */
-/Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][ios-marketing][1024x1024][][][1x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 1024x1024.
-/Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][iphone][40x40][][][2x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 80x80.
-/Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][iphone][20x20][][][2x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 40x40.
-/Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][iphone][40x40][][][3x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 120x120.
-/Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][iphone][20x20][][][3x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 60x60.
-/Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][iphone][60x60][][][2x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 120x120.
-/Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][iphone][29x29][][][2x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 58x58.
 /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][iphone][60x60][][][3x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 180x180.
-/Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][iphone][29x29][][][3x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 87x87.
 /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][ios-marketing][1024x1024][][][1x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 1024x1024.
-/Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][iphone][40x40][][][2x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 80x80.
-/Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][iphone][20x20][][][2x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 40x40.
-/Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][iphone][40x40][][][3x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 120x120.
-/Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][iphone][20x20][][][3x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 60x60.
-/Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][iphone][60x60][][][2x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 120x120.
-/Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][iphone][29x29][][][2x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 58x58.
 /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][iphone][60x60][][][3x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 180x180.
-/Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][iphone][29x29][][][3x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 87x87.
+/Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][ios-marketing][1024x1024][][][1x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 1024x1024.
 /* com.apple.actool.compilation-results */
 /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter.build/DerivedSources/GeneratedAssetSymbols-Index.plist
 /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter.build/DerivedSources/GeneratedAssetSymbols.h
@@ -175,24 +161,10 @@ CompileAssetCatalogVariant thinned /Users/runner/work/A3ToA4Splitter/A3ToA4Split
 /* com.apple.actool.errors */
 error: The stickers icon set, app icon set, or icon stack named "AppIcon" did not have any applicable content.
 /* com.apple.actool.document.warnings */
-/Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][iphone][20x20][][][3x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 60x60.
-/Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][iphone][60x60][][][2x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 120x120.
-/Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][iphone][29x29][][][2x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 58x58.
 /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][iphone][60x60][][][3x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 180x180.
-/Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][iphone][29x29][][][3x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 87x87.
 /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][ios-marketing][1024x1024][][][1x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 1024x1024.
-/Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][iphone][40x40][][][2x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 80x80.
-/Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][iphone][20x20][][][2x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 40x40.
-/Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][iphone][40x40][][][3x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 120x120.
-/Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][iphone][20x20][][][3x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 60x60.
-/Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][iphone][60x60][][][2x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 120x120.
-/Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][iphone][29x29][][][2x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 58x58.
 /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][iphone][60x60][][][3x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 180x180.
-/Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][iphone][29x29][][][3x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 87x87.
 /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][ios-marketing][1024x1024][][][1x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 1024x1024.
-/Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][iphone][40x40][][][2x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 80x80.
-/Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][iphone][20x20][][][2x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 40x40.
-/Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets:./AppIcon.appiconset/[][iphone][40x40][][][3x][][][][]: warning: AppIcon.appiconset/Icon-180.png is 2048x2048 but should be 120x120.
 /* com.apple.actool.compilation-results */
 /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter.build/assetcatalog_generated_info.plist_thinned
 

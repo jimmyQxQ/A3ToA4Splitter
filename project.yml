@@ -13,7 +13,6 @@ targets:
         PRODUCT_NAME: A3ToA4Splitter
         SWIFT_VERSION: "5.9"
         TARGETED_DEVICE_FAMILY: "1"
-        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
     info:
       path: A3ToA4Splitter/Info.plist
       properties:
