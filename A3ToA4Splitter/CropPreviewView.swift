@@ -42,26 +42,23 @@ struct CropPreviewView: View {
                     let imageAspectRatio = image.size.width / image.size.height
                     let containerAspectRatio = layout.isLandscape ? PDFProcessor.a3Landscape.width / PDFProcessor.a3Landscape.height : PDFProcessor.a3Portrait.width / PDFProcessor.a3Portrait.height
 
-                    let displayWidth: CGFloat
-                    let displayHeight: CGFloat
-
-                    if imageAspectRatio > containerAspectRatio {
-                        displayWidth = availableWidth
-                        displayHeight = availableWidth / imageAspectRatio
-                    } else {
-                        displayHeight = availableHeight
-                        displayWidth = availableHeight * imageAspectRatio
-                    }
+                    let displaySize: CGSize = {
+                        if imageAspectRatio > containerAspectRatio {
+                            return CGSize(width: availableWidth, height: availableWidth / imageAspectRatio)
+                        } else {
+                            return CGSize(width: availableHeight * imageAspectRatio, height: availableHeight)
+                        }
+                    }()
 
                     ZStack {
                         Image(uiImage: image)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: displayWidth, height: displayHeight)
+                            .frame(width: displaySize.width, height: displaySize.height)
 
                         CropOverlayView(
                             layout: layout,
-                            imageSize: CGSize(width: displayWidth, height: displayHeight)
+                            imageSize: displaySize
                         )
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
