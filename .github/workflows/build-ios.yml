@@ -22,7 +22,7 @@ jobs:
       - name: Generate Xcode Project
         run: xcodegen generate
 
-      - name: Build for iOS (no signature)
+      - name: Build with Ad-Hoc Signing
         run: |
           set -e
           mkdir -p build
@@ -32,9 +32,8 @@ jobs:
             -configuration Release \
             -sdk iphoneos \
             -derivedDataPath build/DerivedData \
-            CODE_SIGN_IDENTITY="" \
+            CODE_SIGN_IDENTITY="-" \
             CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO \
             CODE_SIGN_STYLE=Manual \
             2>&1 | tee build/build-log.txt
 
@@ -70,20 +69,6 @@ jobs:
           echo "=== Searching for Assets.car in DerivedData ==="
           find "build/DerivedData" -name "Assets.car" 2>/dev/null
 
-      - name: Copy Swift Runtime Libraries
-        run: |
-          APP_PATH=$(find "build/DerivedData/Build/Products/Release-iphoneos" -name "*.app" -type d | head -n 1)
-          mkdir -p "$APP_PATH/Frameworks"
-          
-          SWIFT_LIBS_PATH="$(xcode-select -p)/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos"
-          echo "=== Copying Swift runtime libraries from $SWIFT_LIBS_PATH ==="
-          
-          find "$SWIFT_LIBS_PATH" -name '*.dylib' -exec cp {} "$APP_PATH/Frameworks/" \;
-          
-          echo "=== Copied frameworks ==="
-          ls -la "$APP_PATH/Frameworks/"
-          du -sh "$APP_PATH/Frameworks/"/*
-
       - name: Copy Missing Assets.car
         run: |
           APP_PATH=$(find "build/DerivedData/Build/Products/Release-iphoneos" -name "*.app" -type d | head -n 1)
@@ -102,18 +87,11 @@ jobs:
             echo "Assets.car already present"
           fi
 
-      - name: Final Inspection
-        run: |
-          APP_PATH=$(find "build/DerivedData/Build/Products/Release-iphoneos" -name "*.app" -type d | head -n 1)
-          echo "=== Final .app size ==="
-          du -sh "$APP_PATH"
-          echo "=== Final .app contents ==="
-          ls -la "$APP_PATH"
-
-      - name: Package IPA
+      - name: Strip Signature & Package IPA
         run: |
           APP_PATH=$(find "build/DerivedData/Build/Products/Release-iphoneos" -name "*.app" -type d | head -n 1)
 
+          codesign --remove-signature "$APP_PATH" 2>/dev/null || true
           rm -rf "$APP_PATH/_CodeSignature" 2>/dev/null || true
           rm -rf "$APP_PATH/embedded.mobileprovision" 2>/dev/null || true
 
