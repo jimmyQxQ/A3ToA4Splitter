@@ -23,16 +23,14 @@ struct PageLayout {
     let columns: Int
     let rows: Int
     let a4Size: CGSize
-    let sourceSize: CGSize
+    let a3Size: CGSize
 }
 
 class PDFProcessor {
 
-    // A4 尺寸 72dpi: 595 x 842 pts
     static let a4Portrait = CGSize(width: 595, height: 842)
     static let a4Landscape = CGSize(width: 842, height: 595)
 
-    // A3 尺寸 72dpi: 842 x 1191 pts
     static let a3Portrait = CGSize(width: 842, height: 1191)
     static let a3Landscape = CGSize(width: 1191, height: 842)
 
@@ -42,18 +40,18 @@ class PDFProcessor {
 
     static func calculateLayout(sourceSize: CGSize) -> PageLayout {
         let isLandscape = detectOrientation(size: sourceSize)
-        // 输出始终为纵向 A4，方便打印
         let a4Size = a4Portrait
+        let a3Size = isLandscape ? a3Landscape : a3Portrait
 
-        let cols = Int(ceil(sourceSize.width / a4Size.width))
-        let rows = Int(ceil(sourceSize.height / a4Size.height))
+        let columns = isLandscape ? 2 : 1
+        let rows = isLandscape ? 1 : 2
 
         return PageLayout(
             isLandscape: isLandscape,
-            columns: max(cols, 1),
-            rows: max(rows, 1),
+            columns: columns,
+            rows: rows,
             a4Size: a4Size,
-            sourceSize: sourceSize
+            a3Size: a3Size
         )
     }
 
@@ -66,8 +64,7 @@ class PDFProcessor {
             throw SplitError.renderFailed
         }
 
-        let a4PortraitSize = a4Portrait
-        var mediaBox = CGRect(origin: .zero, size: a4PortraitSize)
+        var mediaBox = CGRect(origin: .zero, size: layout.a4Size)
         guard let context = CGContext(consumer: consumer, mediaBox: &mediaBox, nil) else {
             throw SplitError.renderFailed
         }
@@ -76,41 +73,41 @@ class PDFProcessor {
             throw SplitError.invalidInput
         }
 
-        let scaleX = CGFloat(cgImage.width) / size.width
-        let scaleY = CGFloat(cgImage.height) / size.height
+        let imageAspectRatio = size.width / size.height
+        let a3AspectRatio = layout.a3Size.width / layout.a3Size.height
+
+        var scale: CGFloat
+        if imageAspectRatio > a3AspectRatio {
+            scale = layout.a3Size.width / size.width
+        } else {
+            scale = layout.a3Size.height / size.height
+        }
+
+        let scaledWidth = size.width * scale
+        let scaledHeight = size.height * scale
+
+        let offsetX = (layout.a3Size.width - scaledWidth) / 2
+        let offsetY = (layout.a3Size.height - scaledHeight) / 2
 
         for row in 0..<layout.rows {
             for col in 0..<layout.columns {
                 context.beginPDFPage(nil)
 
-                let x = CGFloat(col) * layout.a4Size.width
-                let y = CGFloat(row) * layout.a4Size.height
+                let pageX = CGFloat(col) * layout.a4Size.width
+                let pageY = CGFloat(row) * layout.a4Size.height
 
-                // 计算裁剪区域（CoreGraphics坐标系，原点在左下角）
-                let cropRect = CGRect(
-                    x: x,
-                    y: size.height - y - layout.a4Size.height,
-                    width: layout.a4Size.width,
-                    height: layout.a4Size.height
-                )
+                context.saveGState()
 
-                // 转换为CGImage坐标（原点在左上角）
-                let imageCropRect = CGRect(
-                    x: cropRect.origin.x * scaleX,
-                    y: cropRect.origin.y * scaleY,
-                    width: cropRect.width * scaleX,
-                    height: cropRect.height * scaleY
-                )
+                context.translateBy(x: -pageX, y: -(layout.a3Size.height - pageY - layout.a4Size.height))
 
-                // 裁剪子图像
-                if let croppedCGImage = cgImage.cropping(to: imageCropRect) {
-                    // 在A4页面上绘制，保持比例填充
-                    let drawRect = CGRect(origin: .zero, size: a4PortraitSize)
-                    context.draw(croppedCGImage, in: drawRect)
-                }
+                context.translateBy(x: offsetX, y: offsetY)
 
-                // 添加裁切线
-                drawCropMarks(context: context, pageSize: a4PortraitSize)
+                let drawRect = CGRect(origin: .zero, size: CGSize(width: scaledWidth, height: scaledHeight))
+                context.draw(cgImage, in: drawRect)
+
+                context.restoreGState()
+
+                drawCropMarks(context: context, pageSize: layout.a4Size)
 
                 context.endPDFPage()
             }
@@ -144,7 +141,7 @@ class PDFProcessor {
 
                     let cropRect = CGRect(
                         x: x,
-                        y: pageBounds.size.height - y - layout.a4Size.height,
+                        y: layout.a3Size.height - y - layout.a4Size.height,
                         width: layout.a4Size.width,
                         height: layout.a4Size.height
                     )
@@ -153,7 +150,7 @@ class PDFProcessor {
                         from: page,
                         cropRect: cropRect,
                         pageSize: layout.a4Size,
-                        pageBounds: pageBounds
+                        pageBounds: CGRect(origin: .zero, size: layout.a3Size)
                     )
                     outputDocument.insert(newPage, at: outputDocument.pageCount)
                 }
@@ -176,33 +173,38 @@ class PDFProcessor {
     ) -> PDFPage {
         let newPage = PDFPage()
 
-        // 使用 UIGraphicsImageRenderer 创建带裁切线的页面图像
         let renderer = UIGraphicsImageRenderer(size: pageSize)
         let image = renderer.image { ctx in
             let cgContext = ctx.cgContext
 
-            // 白色背景
             UIColor.white.setFill()
             cgContext.fill(CGRect(origin: .zero, size: pageSize))
 
-            // 翻转坐标系
             cgContext.saveGState()
             cgContext.translateBy(x: 0, y: pageSize.height)
             cgContext.scaleBy(x: 1, y: -1)
 
-            // 渲染原始页面内容到当前裁剪区域
             if let pageRef = sourcePage.pageRef {
-                cgContext.translateBy(x: -cropRect.origin.x, y: -cropRect.origin.y)
+                let sourceBounds = sourcePage.bounds(for: .mediaBox)
+                let scaleX = pageBounds.width / sourceBounds.width
+                let scaleY = pageBounds.height / sourceBounds.height
+                let scale = min(scaleX, scaleY)
+
+                let scaledWidth = sourceBounds.width * scale
+                let scaledHeight = sourceBounds.height * scale
+                let offsetX = (pageBounds.width - scaledWidth) / 2
+                let offsetY = (pageBounds.height - scaledHeight) / 2
+
+                cgContext.translateBy(x: offsetX - cropRect.origin.x, y: offsetY - cropRect.origin.y)
+                cgContext.scaleBy(x: scale, y: scale)
                 cgContext.drawPDFPage(pageRef)
             }
 
             cgContext.restoreGState()
 
-            // 绘制裁切线
             drawCropMarks(context: cgContext, pageSize: pageSize)
         }
 
-        // 将图像设置为新页面内容
         if let cgImage = image.cgImage,
            let imagePage = PDFPage(image: UIImage(cgImage: cgImage)) {
             return imagePage
@@ -219,22 +221,18 @@ class PDFProcessor {
         context.setStrokeColor(UIColor.black.cgColor)
         context.setLineWidth(lineWidth)
 
-        // 左上角
         context.move(to: CGPoint(x: markOffset, y: markOffset + markLength))
         context.addLine(to: CGPoint(x: markOffset, y: markOffset))
         context.addLine(to: CGPoint(x: markOffset + markLength, y: markOffset))
 
-        // 右上角
         context.move(to: CGPoint(x: pageSize.width - markOffset - markLength, y: markOffset))
         context.addLine(to: CGPoint(x: pageSize.width - markOffset, y: markOffset))
         context.addLine(to: CGPoint(x: pageSize.width - markOffset, y: markOffset + markLength))
 
-        // 左下角
         context.move(to: CGPoint(x: markOffset, y: pageSize.height - markOffset - markLength))
         context.addLine(to: CGPoint(x: markOffset, y: pageSize.height - markOffset))
         context.addLine(to: CGPoint(x: markOffset + markLength, y: pageSize.height - markOffset))
 
-        // 右下角
         context.move(to: CGPoint(x: pageSize.width - markOffset - markLength, y: pageSize.height - markOffset))
         context.addLine(to: CGPoint(x: pageSize.width - markOffset, y: pageSize.height - markOffset))
         context.addLine(to: CGPoint(x: pageSize.width - markOffset, y: pageSize.height - markOffset - markLength))
