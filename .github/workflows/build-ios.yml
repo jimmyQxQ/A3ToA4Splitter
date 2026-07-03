@@ -22,7 +22,7 @@ jobs:
       - name: Generate Xcode Project
         run: xcodegen generate
 
-      - name: Build with Ad-Hoc Signing
+      - name: Build without Signing
         run: |
           set -e
           mkdir -p build
@@ -32,8 +32,9 @@ jobs:
             -configuration Release \
             -sdk iphoneos \
             -derivedDataPath build/DerivedData \
-            CODE_SIGN_IDENTITY="-" \
+            CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
             CODE_SIGN_STYLE=Manual \
             2>&1 | tee build/build-log.txt
 
@@ -59,15 +60,6 @@ jobs:
           find "$APP_PATH" -name "${{ env.PROJECT_NAME }}" -type f -exec file {} \;
           echo "=== Size breakdown ==="
           du -sh "$APP_PATH"/* 2>/dev/null || echo "No files in .app"
-          echo "=== Frameworks contents ==="
-          if [ -d "$APP_PATH/Frameworks" ]; then
-            ls -la "$APP_PATH/Frameworks/"
-            du -sh "$APP_PATH/Frameworks/"/* 2>/dev/null || echo "No files in Frameworks"
-          else
-            echo "No Frameworks directory"
-          fi
-          echo "=== Searching for Assets.car in DerivedData ==="
-          find "build/DerivedData" -name "Assets.car" 2>/dev/null
 
       - name: Copy Missing Assets.car
         run: |
@@ -87,11 +79,10 @@ jobs:
             echo "Assets.car already present"
           fi
 
-      - name: Strip Signature & Package IPA
+      - name: Package IPA
         run: |
           APP_PATH=$(find "build/DerivedData/Build/Products/Release-iphoneos" -name "*.app" -type d | head -n 1)
 
-          codesign --remove-signature "$APP_PATH" 2>/dev/null || true
           rm -rf "$APP_PATH/_CodeSignature" 2>/dev/null || true
           rm -rf "$APP_PATH/embedded.mobileprovision" 2>/dev/null || true
 
@@ -102,7 +93,7 @@ jobs:
           ls -lh ${{ env.PROJECT_NAME }}.ipa
 
           echo "=== IPA structure ==="
-          unzip -l ${{ env.PROJECT_NAME }}.ipa | head -50
+          unzip -l ${{ env.PROJECT_NAME }}.ipa | head -30
 
       - name: Upload IPA
         uses: actions/upload-artifact@v4
