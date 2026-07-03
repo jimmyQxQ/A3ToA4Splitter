@@ -10,7 +10,7 @@ Build settings from command line:
 
 --- xcodebuild: WARNING: Using the first of multiple matching destinations:
 { platform:iOS, id:dvtdevice-DVTiPhonePlaceholder-iphoneos:placeholder, name:Any iOS Device }
-{ platform:macOS, arch:arm64, variant:Designed for [iPad,iPhone], id:f0d498a10aa6abf6b6bde2c28fcfeb2caed74b41, name:My Mac }
+{ platform:macOS, arch:arm64, variant:Designed for [iPad,iPhone], id:22549d182def61e1c7d98d257bd44e9f2ced0697, name:My Mac }
 { platform:iOS Simulator, id:dvtdevice-DVTiOSDeviceSimulatorPlaceholder-iphonesimulator:placeholder, name:Any iOS Simulator Device }
 note: Using codesigning identity override: 
 ComputePackagePrebuildTargetDependencyGraph
@@ -42,8 +42,8 @@ ExecuteExternalTool /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/X
 
 ExecuteExternalTool /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
 
-Build description signature: 655ea0d42a28370fc6643c8fe09e8134
-Build description path: /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/XCBuildData/655ea0d42a28370fc6643c8fe09e8134.xcbuilddata
+Build description signature: a2081e3b5f63f5c484842f9e1c4cbfeb
+Build description path: /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/XCBuildData/a2081e3b5f63f5c484842f9e1c4cbfeb.xcbuilddata
 CreateBuildDirectory /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Products
     cd /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter.xcodeproj
     builtin-create-build-directory /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Products
@@ -56,25 +56,25 @@ ClangStatCache /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeD
     cd /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter.xcodeproj
     /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode_16.4.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.5.sdk -o /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/SDKStatCaches.noindex/iphoneos18.5-22F76-a529daf784b3616c7c04a36aeb7f5c05.sdkstatcache
 
-CreateBuildDirectory /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Products/Release-iphoneos
-    cd /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter.xcodeproj
-    builtin-create-build-directory /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Products/Release-iphoneos
-
 WriteAuxiliaryFile /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter-94d1d7391f75a6287cef562d1a77c0f0-VFS-iphoneos/all-product-headers.yaml
     cd /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter.xcodeproj
     write-file /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter-94d1d7391f75a6287cef562d1a77c0f0-VFS-iphoneos/all-product-headers.yaml
+
+CreateBuildDirectory /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Products/Release-iphoneos
+    cd /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter.xcodeproj
+    builtin-create-build-directory /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Products/Release-iphoneos
 
 CreateBuildDirectory /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/EagerLinkingTBDs/Release-iphoneos
     cd /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter.xcodeproj
     builtin-create-build-directory /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/EagerLinkingTBDs/Release-iphoneos
 
-WriteAuxiliaryFile /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter.build/Objects-normal/arm64/A3ToA4Splitter.SwiftFileList (in target 'A3ToA4Splitter' from project 'A3ToA4Splitter')
-    cd /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter
-    write-file /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter.build/Objects-normal/arm64/A3ToA4Splitter.SwiftFileList
-
 WriteAuxiliaryFile /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter.build/Objects-normal/arm64/A3ToA4Splitter_const_extract_protocols.json (in target 'A3ToA4Splitter' from project 'A3ToA4Splitter')
     cd /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter
     write-file /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter.build/Objects-normal/arm64/A3ToA4Splitter_const_extract_protocols.json
+
+WriteAuxiliaryFile /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter.build/Objects-normal/arm64/A3ToA4Splitter.SwiftFileList (in target 'A3ToA4Splitter' from project 'A3ToA4Splitter')
+    cd /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter
+    write-file /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter.build/Objects-normal/arm64/A3ToA4Splitter.SwiftFileList
 
 WriteAuxiliaryFile /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter.build/Objects-normal/arm64/A3ToA4Splitter.SwiftConstValuesFileList (in target 'A3ToA4Splitter' from project 'A3ToA4Splitter')
     cd /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter
@@ -124,13 +124,13 @@ MkDir /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/P
     cd /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter
     /bin/mkdir -p /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Products/Release-iphoneos/A3ToA4Splitter.app
 
-MkDir /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter.build/assetcatalog_output/unthinned (in target 'A3ToA4Splitter' from project 'A3ToA4Splitter')
-    cd /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter
-    /bin/mkdir -p /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter.build/assetcatalog_output/unthinned
-
 MkDir /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter.build/assetcatalog_output/thinned (in target 'A3ToA4Splitter' from project 'A3ToA4Splitter')
     cd /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter
     /bin/mkdir -p /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter.build/assetcatalog_output/thinned
+
+MkDir /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter.build/assetcatalog_output/unthinned (in target 'A3ToA4Splitter' from project 'A3ToA4Splitter')
+    cd /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter
+    /bin/mkdir -p /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/build/DerivedData/Build/Intermediates.noindex/A3ToA4Splitter.build/Release-iphoneos/A3ToA4Splitter.build/assetcatalog_output/unthinned
 
 GenerateAssetSymbols /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Assets.xcassets /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/Preview\ Content/Preview\ Assets.xcassets (in target 'A3ToA4Splitter' from project 'A3ToA4Splitter')
     cd /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter
@@ -170,7 +170,7 @@ CompileSwift normal arm64 (in target 'A3ToA4Splitter' from project 'A3ToA4Splitt
                    ~~~~^~~~~~~~~~~~
                                              != nil
 /Users/runner/work/A3ToA4Splitter/A3ToA4Splitter/A3ToA4Splitter/CropPreviewView.swift:84:14: error: ambiguous use of 'toolbar(content:)'
-            .toolbar {
+            .toolbar(content: {
              ^
 SwiftUI.View.toolbar:2:25: note: found this candidate in module 'SwiftUI'
 nonisolated public func toolbar<Content>(@ViewBuilder content: () -> Content) -> some View where Content : View
