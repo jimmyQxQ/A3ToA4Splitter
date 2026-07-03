@@ -59,14 +59,56 @@ jobs:
           find "$APP_PATH" -name "${{ env.PROJECT_NAME }}" -type f -exec ls -lh {} \;
           find "$APP_PATH" -name "${{ env.PROJECT_NAME }}" -type f -exec file {} \;
           echo "=== Size breakdown ==="
-          du -sh "$APP_PATH"/*
+          du -sh "$APP_PATH"/* 2>/dev/null || echo "No files in .app"
           echo "=== Frameworks contents ==="
           if [ -d "$APP_PATH/Frameworks" ]; then
             ls -la "$APP_PATH/Frameworks/"
-            du -sh "$APP_PATH/Frameworks/"/*
+            du -sh "$APP_PATH/Frameworks/"/* 2>/dev/null || echo "No files in Frameworks"
           else
             echo "No Frameworks directory"
           fi
+          echo "=== Searching for Assets.car in DerivedData ==="
+          find "build/DerivedData" -name "Assets.car" 2>/dev/null
+
+      - name: Copy Swift Runtime Libraries
+        run: |
+          APP_PATH=$(find "build/DerivedData/Build/Products/Release-iphoneos" -name "*.app" -type d | head -n 1)
+          mkdir -p "$APP_PATH/Frameworks"
+          
+          SWIFT_LIBS_PATH="$(xcode-select -p)/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos"
+          echo "=== Copying Swift runtime libraries from $SWIFT_LIBS_PATH ==="
+          
+          find "$SWIFT_LIBS_PATH" -name '*.dylib' -exec cp {} "$APP_PATH/Frameworks/" \;
+          
+          echo "=== Copied frameworks ==="
+          ls -la "$APP_PATH/Frameworks/"
+          du -sh "$APP_PATH/Frameworks/"/*
+
+      - name: Copy Missing Assets.car
+        run: |
+          APP_PATH=$(find "build/DerivedData/Build/Products/Release-iphoneos" -name "*.app" -type d | head -n 1)
+          
+          if [ ! -f "$APP_PATH/Assets.car" ]; then
+            echo "=== Assets.car not found in .app, searching in DerivedData ==="
+            ASSETS_CAR=$(find "build/DerivedData" -name "Assets.car" | head -n 1)
+            if [ -n "$ASSETS_CAR" ]; then
+              echo "Found: $ASSETS_CAR"
+              cp "$ASSETS_CAR" "$APP_PATH/"
+              echo "Copied Assets.car to .app"
+            else
+              echo "WARNING: Assets.car not found anywhere!"
+            fi
+          else
+            echo "Assets.car already present"
+          fi
+
+      - name: Final Inspection
+        run: |
+          APP_PATH=$(find "build/DerivedData/Build/Products/Release-iphoneos" -name "*.app" -type d | head -n 1)
+          echo "=== Final .app size ==="
+          du -sh "$APP_PATH"
+          echo "=== Final .app contents ==="
+          ls -la "$APP_PATH"
 
       - name: Package IPA
         run: |
@@ -82,7 +124,7 @@ jobs:
           ls -lh ${{ env.PROJECT_NAME }}.ipa
 
           echo "=== IPA structure ==="
-          unzip -l ${{ env.PROJECT_NAME }}.ipa | head -40
+          unzip -l ${{ env.PROJECT_NAME }}.ipa | head -50
 
       - name: Upload IPA
         uses: actions/upload-artifact@v4
